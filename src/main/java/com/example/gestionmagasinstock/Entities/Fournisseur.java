@@ -16,12 +16,14 @@ public class Fournisseur implements Serializable {
     private Long idFournisseur;
     private  String codeFournisseur ;
     private String libelleFournisseur;
+    @Enumerated(EnumType.STRING)
     private CategorieFournisseur categorieFournisseur  ;
 
     @OneToMany(mappedBy = "fournisseur")
     private Set<Facture> factures;
 
-    @OneToOne DetailFournisseur detailFournisseur;
+    @OneToOne(cascade = CascadeType.ALL)
+    DetailFournisseur detailFournisseur;
 
     @ManyToMany
     private Set<SecteurActivite>secteurActivites;

@@ -2,6 +2,7 @@ package com.example.gestionmagasinstock.Controllers;
 
 import com.example.gestionmagasinstock.Entities.Fournisseur;
 import com.example.gestionmagasinstock.Entities.Operateur;
+import com.example.gestionmagasinstock.Services.IOperateur;
 import com.example.gestionmagasinstock.Services.IService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequestMapping("/Operateur")
 public class OperateurController {
     IService<Operateur> iService;
+    IOperateur iOperateur;
 
     @PostMapping("/addOperateur")
     @ResponseBody
@@ -42,5 +44,12 @@ public class OperateurController {
     @ResponseBody
     public Operateur GetOperateur(@PathVariable("id_get") Long id) {
         return iService.getOne(id);
+    }
+
+    @PostMapping("assignOperateurToFacture/{idUniversite}/{idDepartement}")
+    public void assignOperateurToFacture(@PathVariable Long idOperateur,@PathVariable Long idFacture){
+
+        iOperateur.assignOperateurToFacture(idOperateur,idFacture);
+
     }
 }

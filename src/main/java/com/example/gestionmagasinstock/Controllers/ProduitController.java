@@ -1,6 +1,7 @@
 package com.example.gestionmagasinstock.Controllers;
 
 import com.example.gestionmagasinstock.Entities.Produit;
+import com.example.gestionmagasinstock.Services.IProduit;
 import com.example.gestionmagasinstock.Services.IService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,17 +13,18 @@ import java.util.List;
 @RequestMapping("/Produit")
 public class ProduitController {
     IService<Produit> iService;
+    IProduit iProduit;
 
     @PostMapping("/addProduit")
     @ResponseBody
-    public Produit AddProduit(@RequestBody Produit produit) {
-        return iService.Add(produit);
+    public Produit AddProduit(@RequestBody Produit p, Long idCategorieProduit, Long idStock) {
+        return iProduit.addProduit( p,  idCategorieProduit, idStock);
     }
 
     @PutMapping("/updateProduit")
     @ResponseBody
-    public Produit Update(@RequestBody Produit produit) {
-        return iService.Update(produit);
+    public Produit Update(@RequestBody Produit p, Long idCategorieProduit, Long idStock) {
+        return iProduit.updateProduit(p,idCategorieProduit,idStock);
     }
 
     @GetMapping("/GetAll")
@@ -41,6 +43,11 @@ public class ProduitController {
     @ResponseBody
     public Produit GetProduit(@PathVariable("id_get") Long id) {
         return iService.getOne(id);
+    }
+
+    @PostMapping("/assignProduitToStock/{idProduit}/{idStock}")
+    void assignProduitToStock (@PathVariable Long idProduit,@PathVariable Long idStock){
+        iProduit.assignProduitToStock(idProduit,idStock);
     }
 }
 

@@ -10,5 +10,5 @@ public interface IService <object>{
     void  Delete(Long id );
     object getOne(Long id);
 
-    void assignProduitToStock(Long idProduit, Long idStock);
+    //void assignProduitToStock(Long idProduit, Long idStock);
 }

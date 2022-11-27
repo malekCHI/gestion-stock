@@ -1,6 +1,7 @@
 package com.example.gestionmagasinstock.Controllers;
 
 import com.example.gestionmagasinstock.Entities.SecteurActivite;
+import com.example.gestionmagasinstock.Services.ISecteurActivite;
 import com.example.gestionmagasinstock.Services.IService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 public class SecteurController {
 
     IService<SecteurActivite> iService;
+    ISecteurActivite iSecteurActivite;
     @PostMapping("/add")
     @ResponseBody
     public SecteurActivite Add(@RequestBody SecteurActivite secteurActivite) {
@@ -41,5 +43,12 @@ public class SecteurController {
     @ResponseBody
     public SecteurActivite GetOne(@PathVariable("id_get") Long id) {
         return iService.getOne(id);
+    }
+
+    @PostMapping("assignSecteurActiviteToFournisseur/{fournisseurId}/{secteurActiviteId}")
+    public void assignSecteurActiviteToFournisseur(@PathVariable Long fournisseurId,@PathVariable Long secteurActiviteId){
+
+        iSecteurActivite.assignSecteurActiviteToFournisseur(fournisseurId,secteurActiviteId);
+
     }
 }

@@ -2,17 +2,20 @@ package com.example.gestionmagasinstock.Controllers;
 
 import com.example.gestionmagasinstock.Entities.Produit;
 import com.example.gestionmagasinstock.Entities.Reglement;
+import com.example.gestionmagasinstock.Services.IReglement;
 import com.example.gestionmagasinstock.Services.IService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/Reglement")
 public class ReglementController {
     IService<Reglement> iService;
+    IReglement iReglement;
 
     @PostMapping("/add")
     @ResponseBody
@@ -42,5 +45,11 @@ public class ReglementController {
     @ResponseBody
     public Reglement GetOne(@PathVariable("id_get") Long id) {
         return iService.getOne(id);
+    }
+
+
+    @GetMapping("/retrieveReglementByFacture/{idFacture}")
+    Set<Reglement> retrieveReglementByFacture(@PathVariable Long idFacture) {
+        return iReglement.retrieveReglementByFacture(idFacture);
     }
 }

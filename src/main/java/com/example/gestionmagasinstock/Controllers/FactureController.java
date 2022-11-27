@@ -3,6 +3,7 @@ package com.example.gestionmagasinstock.Controllers;
 import com.example.gestionmagasinstock.Entities.DetailFacture;
 import com.example.gestionmagasinstock.Entities.Facture;
 import com.example.gestionmagasinstock.Services.FactureService;
+import com.example.gestionmagasinstock.Services.IFacture;
 import com.example.gestionmagasinstock.Services.IService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 public class FactureController {
 
     IService<Facture> iService;
+    IFacture iFacture;
 
     @PostMapping("/addfacture")
     @ResponseBody
@@ -44,5 +46,12 @@ public class FactureController {
     @ResponseBody
     public Facture GetFacture(@PathVariable("id_get") Long id) {
         return iService.getOne(id);
+    }
+
+
+    @GetMapping("/getFacturesByFournisseur/{idFournisseur}")
+    List<Facture> getFacturesByFournisseur (@PathVariable Long idFournisseur){
+        return iFacture.getFacturesByFournisseur(idFournisseur);
+
     }
 }
